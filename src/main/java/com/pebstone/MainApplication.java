@@ -8,18 +8,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @SpringBootApplication
 @EnableResourceServer
-public class MainApplication extends SpringBootServletInitializer{
+public class MainApplication{
 
 	private static final Logger log = LoggerFactory.getLogger(MainApplication.class);
-	
-	@Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(MainApplication.class);
-    }
 	
 	public static void main(String[] args) {
 		SpringApplication.run(MainApplication.class, args);

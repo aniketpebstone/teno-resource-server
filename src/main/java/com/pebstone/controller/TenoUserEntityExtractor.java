@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.pebstone.model.TenoUserDetails;
 import com.pebstone.model.UserEntity;
 
-@Component
+//@Component
 public class TenoUserEntityExtractor implements PrincipalExtractor {
 
   @Override
@@ -30,8 +30,7 @@ public class TenoUserEntityExtractor implements PrincipalExtractor {
 	 tenoUser.setRole(roles.get(0).get("authority").toString());
 	 tenoUser.setEmail(email);
 	 tenoUser.setPhone(phone);
-	 TenoUserDetails userDetails=new TenoUserDetails(tenoUser);
-	 userDetails.setScope(scope.get(0));	 
+	 TenoUserDetails userDetails=new TenoUserDetails(tenoUser);	 	
 	 return userDetails;	
   } 
 }

@@ -15,11 +15,10 @@ import com.pebstone.model.TenoUserDetails;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class TenoRestController {
 	
-//     @PreAuthorize("hasAnyAuthority('ADMIN') and #oauth2.hasScope('webclient')")
-     @PreAuthorize("hasAnyAuthority('ADMIN')")
+     @PreAuthorize("hasAnyAuthority('ADMIN') and #oauth2.hasScope('webclient')")
+//     @PreAuthorize("hasAnyAuthority('ADMIN')")
 	 @GetMapping({ "/oauth2/password" })
-     public Object healthCheckOauth2(OAuth2Authentication oauth) {
-		 
+     public Object healthCheckOauth2(OAuth2Authentication oauth) {    	 
     	 Object principal=oauth.getPrincipal();
     	 
     	 if(principal instanceof TenoUserDetails)

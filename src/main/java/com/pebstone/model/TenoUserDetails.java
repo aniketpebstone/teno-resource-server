@@ -14,8 +14,7 @@ public class TenoUserDetails implements UserDetails{
 	
 	
 	private static final long serialVersionUID = 1L;
-	private UserEntity user;
-	private String scope;
+	private UserEntity user;	
 	
 	public TenoUserDetails(UserEntity user)
 	{

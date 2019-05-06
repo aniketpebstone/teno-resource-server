@@ -1,8 +1,5 @@
 package com.pebstone.controller;
 
-import java.security.Principal;
-
-import org.hamcrest.core.Is;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

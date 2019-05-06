@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.FixedAuthoritiesExtractor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,7 +23,6 @@ import org.springframework.security.oauth2.common.exceptions.InvalidTokenExcepti
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.stereotype.Component;
 
 import com.pebstone.model.TenoUserDetails;
 import com.pebstone.model.UserEntity;
@@ -95,7 +92,7 @@ public class TenoUserInfoService implements ResourceServerTokenServices {
 			 List<Map> roles= (List<Map>) map.get("authorities");
 			 List<String> scope= (List<String>) map.get("scope");
 			 System.out.println("Roles:"+roles.get(0).get("authority"));
-			 System.out.println("Scope:"+scope.get(0));
+			 System.out.println("Scope:"+scope.get(0));			 
 			 String userName=(String) map.get("user_name");
 			 String email=(String) map.get("email");
 			 String phone=(String) map.get("phone");

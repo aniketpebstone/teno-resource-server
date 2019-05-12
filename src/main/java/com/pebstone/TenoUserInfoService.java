@@ -1,6 +1,5 @@
 package com.pebstone;
 
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -32,10 +31,10 @@ import lombok.Data;
 @Data
 public class TenoUserInfoService implements ResourceServerTokenServices {
 
-//	protected final Log logger = LogFactory.getLog(getClass());
+	// protected final Log logger = LogFactory.getLog(getClass());
 
-	private static final String[] PRINCIPAL_KEYS = new String[] { "user", "username",
-			"userid", "user_id", "login", "id", "name" };
+	private static final String[] PRINCIPAL_KEYS = new String[] { "user", "username", "userid", "user_id", "login",
+			"id", "name" };
 
 	private final String userInfoEndpointUrl;
 
@@ -78,54 +77,61 @@ public class TenoUserInfoService implements ResourceServerTokenServices {
 	private OAuth2Authentication extractAuthentication(Map<String, Object> map) {
 		Object principal = getPrincipal(map);
 		OAuth2Request request = getRequest(map);
-		List<GrantedAuthority> authorities = this.authoritiesExtractor
-				.extractAuthorities(map);
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-				principal, "N/A", authorities);
+		List<GrantedAuthority> authorities = this.authoritiesExtractor.extractAuthorities(map);
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(principal, "N/A",
+				authorities);
 		token.setDetails(map);
 		return new OAuth2Authentication(request, token);
 	}
 
 	private Object getPrincipal(Map<String, Object> map) {
-		  System.out.println("=========================================================================Map:"+map);
-			 UserEntity tenoUser=new UserEntity();
-			 List<Map> roles= (List<Map>) map.get("authorities");
-			 List<String> scope= (List<String>) map.get("scope");
-			 System.out.println("Roles:"+roles.get(0).get("authority"));
-			 System.out.println("Scope:"+scope.get(0));			 
-			 String userName=(String) map.get("user_name");
-			 String email=(String) map.get("email");
-			 String phone=(String) map.get("phone");
-			 System.out.println("UserName:"+userName);
-			 tenoUser.setId(Integer.parseInt(userName));
-			 tenoUser.setRole(roles.get(0).get("authority").toString());
-			 tenoUser.setEmail(email);
-			 tenoUser.setPhone(phone);
-			 TenoUserDetails userDetails=new TenoUserDetails(tenoUser);			 	
-			 return userDetails;	
+		System.out.println("=========================================================================Map:" + map);
+		Map<String, Object> user = (Map<String, Object>) map.get("user");		
+		List<Map> authorities = (List<Map>) map.get("authorities");
+		String roles = (String) authorities.get(0).get("authority");
+		int id = (int) user.get("id");
+		String password = (String) user.get("password");
+		String firstName = (String) user.get("firstName");
+		String lastName = (String) user.get("lastName");
+		int roleId = (Integer) user.get("roleId");
+		String phone = (String) user.get("phone");
+		String email = (String) user.get("email");
+		String authToken = (String) user.get("authToken");
+		boolean isActive=(boolean) user.get("isActive");
+		boolean isDeleted=(boolean) user.get("isDeleted");
+
+		UserEntity tenoUser = new UserEntity();
+		tenoUser.setId(id);
+		tenoUser.setPassword(password);
+		tenoUser.setFirstName(firstName);
+		tenoUser.setLastName(lastName);
+		tenoUser.setRoleId(roleId);
+		tenoUser.setPhone(phone);
+		tenoUser.setEmail(email);
+		tenoUser.setAuthToken(authToken);
+		tenoUser.setIsActive(isActive);
+		tenoUser.setIsDeleted(isDeleted);
+		TenoUserDetails userDetails = new TenoUserDetails(tenoUser);
+		return userDetails;
+
 	}
 
 	@SuppressWarnings({ "unchecked" })
 	private OAuth2Request getRequest(Map<String, Object> map) {
 		Map<String, Object> request = (Map<String, Object>) map.get("oauth2Request");
-		String clientId =null;
-		Set<String> scope=null; 
-		if(request!=null)
-		{
+		String clientId = null;
+		Set<String> scope = null;
+		if (request != null) {
 			clientId = (String) request.get("clientId");
-			scope = new LinkedHashSet<>(request.containsKey("scope") ?
-					(Collection<String>) request.get("scope") : Collections.<String>emptySet());
-		}
-		else
-		{
+			scope = new LinkedHashSet<>(request.containsKey("scope") ? (Collection<String>) request.get("scope")
+					: Collections.<String>emptySet());
+		} else {
 			clientId = (String) map.get("client_id");
-			scope = new LinkedHashSet<>(map.containsKey("scope") ?
-					(Collection<String>) map.get("scope") : Collections.<String>emptySet());
+			scope = new LinkedHashSet<>(
+					map.containsKey("scope") ? (Collection<String>) map.get("scope") : Collections.<String>emptySet());
 		}
-		
 
-		return new OAuth2Request(null, clientId, null, true, new HashSet<>(scope),
-				null, null, null, null);
+		return new OAuth2Request(null, clientId, null, true, new HashSet<>(scope), null, null, null, null);
 	}
 
 	@Override
@@ -143,21 +149,16 @@ public class TenoUserInfoService implements ResourceServerTokenServices {
 				resource.setClientId(this.clientId);
 				restTemplate = new OAuth2RestTemplate(resource);
 			}
-			OAuth2AccessToken existingToken = restTemplate.getOAuth2ClientContext()
-					.getAccessToken();
+			OAuth2AccessToken existingToken = restTemplate.getOAuth2ClientContext().getAccessToken();
 			if (existingToken == null || !accessToken.equals(existingToken.getValue())) {
-				DefaultOAuth2AccessToken token = new DefaultOAuth2AccessToken(
-						accessToken);
+				DefaultOAuth2AccessToken token = new DefaultOAuth2AccessToken(accessToken);
 				token.setTokenType(this.tokenType);
 				restTemplate.getOAuth2ClientContext().setAccessToken(token);
 			}
 			return restTemplate.getForEntity(path, Map.class).getBody();
-		}
-		catch (Exception ex) {
-			System.out.println("Could not fetch user details: " + ex.getClass() + ", "
-					+ ex.getMessage());
-			return Collections.<String, Object>singletonMap("error",
-					"Could not fetch user details");
+		} catch (Exception ex) {
+			System.out.println("Could not fetch user details: " + ex.getClass() + ", " + ex.getMessage());
+			return Collections.<String, Object>singletonMap("error", "Could not fetch user details");
 		}
 	}
 }

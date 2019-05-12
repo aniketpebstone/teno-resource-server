@@ -24,8 +24,10 @@ public class TenoUserDetails implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		List<SimpleGrantedAuthority> auths = new java.util.ArrayList<SimpleGrantedAuthority>();		
-        auths.add(new SimpleGrantedAuthority(user.getRole()));
+		List<SimpleGrantedAuthority> auths = new java.util.ArrayList<SimpleGrantedAuthority>();
+		int roleId=user.getRoleId();
+		Role role=Role.valueOf(roleId).get();
+        auths.add(new SimpleGrantedAuthority(role.name()));
         return auths;    
 	}
 

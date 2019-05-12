@@ -27,7 +27,7 @@ public class TenoUserEntityExtractor implements PrincipalExtractor {
 	 String phone=(String) map.get("phone");
 	 System.out.println("UserName:"+userName);
 	 tenoUser.setId(Integer.parseInt(userName));
-	 tenoUser.setRole(roles.get(0).get("authority").toString());
+//	 tenoUser.setRole(roles.get(0).get("authority").toString());
 	 tenoUser.setEmail(email);
 	 tenoUser.setPhone(phone);
 	 TenoUserDetails userDetails=new TenoUserDetails(tenoUser);	 	

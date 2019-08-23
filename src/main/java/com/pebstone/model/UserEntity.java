@@ -2,76 +2,70 @@ package com.pebstone.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import lombok.Data;
 
 @Data
 public class UserEntity {
-		
-	private Integer	id;
-	
-	private String	firstName;
 
-	private String	lastName;
+    private Integer id;
 
-	private String	email;
-	
-	private String	phone;
+    private String firstName;
 
-	private String	countryCode;
+    private String lastName;
 
-	private String	password;
+    private String email;
 
-	private Boolean	isEmailConfirmed;
+    private String phone;
 
-	private Boolean	isPhoneConfirmed;
+    private String countryCode;
 
-	private Date	createdTime;
+    private String password;
 
-	private Integer	modifiedBy;
+    private Boolean isEmailConfirmed;
 
-	private Long	modifiedTime;
+    private Boolean isPhoneConfirmed;
 
-	private Boolean	isActive;
+    private Date createdTime;
 
-	private Boolean	isDeleted;
+    private Integer modifiedBy;
 
-	private Integer	roleId;
+    private Long modifiedTime;
 
-	private String	authToken;
+    private Boolean isActive;
 
-	private String	jabberedId;
+    private Boolean isDeleted;
 
-	private String	jabberedPassword;
+    private Integer roleId;
 
-	private Date	loginTime;
+    private String authToken;
 
-	private Integer	loginCount;
+    private String jabberedId;
 
-	private String	childList;
+    private String jabberedPassword;
 
-	private Integer	schoolId;
+    private Date loginTime;
 
-	private boolean	isPaymentEnabled	= false;
+    private Integer loginCount;
 
-	private boolean	isTncAccepted		= false;
+    private String childList;
 
-	private String	source;
+    private Integer schoolId;
 
-	private String	pincode;
+    private boolean isPaymentEnabled;
 
-	private String	accountList;
+    private boolean isTncAccepted;
 
-	private Date	birthDate			= null;
+    private String source;
 
-	private String	enrollmentId;
+    private String pincode;
 
-	private String	rollNumber;
+    private String accountList;
+
+    private Date birthDate;
+
+    private String enrollmentId;
+
+    private String rollNumber;
 
 }
